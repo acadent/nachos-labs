@@ -57,7 +57,7 @@ void doExit(int status) {
     printf ("Process [%d] exits with [%d]\n", pid, status);
 
     delete currentThread->space;
-    currentThread->Finish();
+
     currentThread->space->pcb->exitStatus = status;
 
     // Manage PCB memory As a parent process
@@ -68,6 +68,11 @@ void doExit(int status) {
 
     // Manage PCB memory As a child process
     if(pcb->parent == NULL) pcbManager->DeallocatePCB(pcb);
+
+    // Finish current thread only after all the cleanup is done
+    // because currentThread marks itself to be destroyed (by a different thread)
+    // and then puts itself to sleep -- thus anything after this statement will not be executed!
+    currentThread->Finish();
 
 }
 

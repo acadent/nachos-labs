@@ -56,7 +56,6 @@ void doExit(int status) {
     printf("System Call: [%d] invoked [Exit]\n", pid);
     printf ("Process [%d] exits with [%d]\n", pid, status);
 
-    delete currentThread->space;
 
     currentThread->space->pcb->exitStatus = status;
 
@@ -68,6 +67,9 @@ void doExit(int status) {
 
     // Manage PCB memory As a child process
     if(pcb->parent == NULL) pcbManager->DeallocatePCB(pcb);
+
+    // Delete address space only after use is completed
+    delete currentThread->space;
 
     // Finish current thread only after all the cleanup is done
     // because currentThread marks itself to be destroyed (by a different thread)

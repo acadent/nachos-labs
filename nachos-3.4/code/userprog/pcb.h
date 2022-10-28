@@ -15,7 +15,6 @@ class PCB {
         ~PCB();
         int pid;
         PCB* parent;
-        List* children;
         Thread* thread;
         int exitStatus;
 
@@ -25,6 +24,7 @@ class PCB {
         void DeleteExitedChildrenSetParentNull();
 
     private:
+        List* children;
 
 };
 

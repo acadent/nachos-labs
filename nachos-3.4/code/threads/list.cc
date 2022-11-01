@@ -142,6 +142,7 @@ List::RemoveItem(void* item) {
     ListElement *element = first;
     ListElement *prev = NULL;
 
+    // Handle empty list
     if(IsEmpty()) return -1;
 
     // Handle single item list
@@ -158,28 +159,35 @@ List::RemoveItem(void* item) {
         }
     }
 
-    // Item has more than one item
+    // Handle list with more than one items
     element = first;
     prev = NULL;
 
     do {
+        // Found item - so delete it
         if (element->item == item) {
-            // Found item
+            // fix some side effects of deleting
             if (element == last) {
                 // Deleting last item
                 prev->next = NULL;
                 last = prev;
+            } else if (element == first) {
+                // Deleting first item
+                first = element->next;
             } else {
-                // Intermediate item
+                // Deleting intermediate item
                 prev->next = element->next;
             }
             delete element;
             return 0;
         }
+
+        // iterate to next element
+        prev = element;
         element = element->next;
     } while (element != NULL);
 
-    // Element not found
+    // item not found
     return -1;
 }
 

@@ -132,11 +132,11 @@ int doFork(int functionAddr) {
     // NextPCReg: functionAddr+4
     // childThread->SaveUserState();
 
-    // 7. Call thread->fork on Child
-    // childThread->Fork(childFunction, pcb->pid)
-
-    // 8. Restore register state of parent user-level process
+    // 7. Restore register state of parent user-level process
     // currentThread->RestoreUserState()
+
+    // 8. Call thread->fork on Child
+    // childThread->Fork(childFunction, pcb->pid)
 
     // 9. return pcb->pid;
 

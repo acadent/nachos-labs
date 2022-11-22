@@ -38,6 +38,7 @@ class AddrSpace {
     unsigned int Translate(unsigned int virtualAddr);
     PCB* pcb; // the process that owns this addresspace
     bool valid; // is AddrSpace valid
+    void ReadFile(OpenFile *file, int offset, int virtualAddr, int size); // Read from file into a user process' virtual address space.
 
 
   private:

@@ -116,31 +116,25 @@ AddrSpace::AddrSpace(OpenFile *executable)
     if (noffH.code.size > 0) {
         DEBUG('a', "Initializing code segment, at 0x%x, size %d\n",
 			noffH.code.virtualAddr, noffH.code.size);
-        int counter = 0;
-        while( counter < noffH.code.size) {
-
-            executable->ReadAt(&(machine->mainMemory[Translate(noffH.code.virtualAddr+counter)]),
-                1, noffH.code.inFileAddr+counter);
-            counter++;
-        }
+        ReadFile(executable, noffH.code.inFileAddr, noffH.code.virtualAddr, noffH.code.size);
     }
     if (noffH.initData.size > 0) {
         DEBUG('a', "Initializing data segment, at 0x%x, size %d\n",
 			noffH.initData.virtualAddr, noffH.initData.size);
-        int counter = 0;
-        while( counter < noffH.initData.size) {
-        	executable->ReadAt(&(machine->mainMemory[Translate(noffH.initData.virtualAddr+counter)]),
-				1, noffH.initData.inFileAddr+counter);
-            counter++;
-        }
-
+        ReadFile(executable, noffH.initData.inFileAddr, noffH.initData.virtualAddr, noffH.initData.size);
     }
-
     valid = true;
-
-
 }
 
+
+void AddrSpace::ReadFile(OpenFile *file, int offset, int virtualAddr, int size) {
+    int counter = 0;
+    while( counter < size) {
+        file->ReadAt(&(machine->mainMemory[Translate(virtualAddr+counter)]),
+            1, offset+counter);
+        counter++;
+    }
+}
 
 TranslationEntry* AddrSpace::GetPageTable() {
     return pageTable;

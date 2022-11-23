@@ -49,9 +49,11 @@ int PCBManager::DeallocatePCB(PCB* pcb) {
 
     // Release pcbManagerLock
 
-    delete pcbs[pcb->pid];
+    int pid = pcb->pid;
 
-    pcbs[pcb->pid] = NULL;
+    delete pcbs[pid];
+
+    pcbs[pid] = NULL;
 
 }
 

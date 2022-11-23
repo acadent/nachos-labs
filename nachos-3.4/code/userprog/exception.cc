@@ -155,42 +155,34 @@ int doExec(char* filename) {
     //     return -1;
     // }
 
-    // 2. Create new address space
+    // 2. Delete current address space but store current PCB first if using in Step 5.
+    // PCB* pcb = currentThread->space->pcb;
+    // delete currentThread->space;
+
+    // 3. Create new address space
     // space = new AddrSpace(executable);
 
-    // 3. Check if Addrspace creation was successful
+    // 4.     delete executable;			// close file
+
+    // 5. Check if Addrspace creation was successful
     // if(space->valid != true) {
     // printf("Could not create AddrSpace\n");
     //     return -1;
     // }
 
-    // Steps 4 and 5 may not be necessary!!
-
-    // 4. Create a new PCB for the new addrspace
-    // ?. Can you reuse existing pcb?
-    // PCB* pcb = pcbManager->AllocatePCB();
-    // Initialize parent
-    // pcb->parent = currentThread->space->pcb->parent;
+    // 6. Set the PCB for the new addrspace - reused from deleted address space
     // space->pcb = pcb;
 
-    // 5. Set the thread for the new pcb
-    // pcb->thread = currentThread;
-
-    // 6. Delete current address space
-    // delete currentThread->space;
-
-    // 7. SEt the addrspace for currentThread
+    // 7. Set the addrspace for currentThread
     // currentThread->space = space;
 
-    // 8.     delete executable;			// close file
-
-    // 9. Initialize registers for new addrspace
+    // 8. Initialize registers for new addrspace
     //  space->InitRegisters();		// set the initial register values
 
-    // 10. Initialize the page table
+    // 9. Initialize the page table
     // space->RestoreState();		// load page table register
 
-    // 11. Run the machine now that all is set up
+    // 10. Run the machine now that all is set up
     // machine->Run();			// jump to the user progam
     // ASSERT(FALSE); // Execution nevere reaches here
 

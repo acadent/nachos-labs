@@ -55,6 +55,8 @@ int PCBManager::DeallocatePCB(PCB* pcb) {
 
     pcbs[pid] = NULL;
 
+    return 0;
+
 }
 
 PCB* PCBManager::GetPCB(int pid) {

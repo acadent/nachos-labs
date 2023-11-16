@@ -96,9 +96,6 @@ void childFunction(int pid) {
     // 2. Restore the page table for child
     // currentThread->space->RestoreState()
 
-    // PCReg == machine->ReadRegister(PCReg)
-    // print message for child creation (pid,  PCReg, currentThread->space->GetNumPages())
-
     // machine->Run();
 
 }
@@ -138,6 +135,10 @@ int doFork(int functionAddr) {
 
     // 8. Call thread->fork on Child
     // childThread->Fork(childFunction, pcb->pid)
+
+    // pcreg = machine->ReadRegister(PCReg)
+    // print message for child creation (pid,  pcreg, currentThread->space->GetNumPages())
+
 
     // 9. return pcb->pid;
 

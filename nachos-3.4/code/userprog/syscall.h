@@ -14,6 +14,7 @@
 #define SYSCALLS_H
 
 #include "copyright.h"
+#include "sched.h"
 
 /* system call codes -- used by the stubs to tell the kernel which system call
  * is being asked for
@@ -123,7 +124,14 @@ int Fork(void (*func)());
 /* Yield the CPU to another runnable thread, whether in this address space
  * or not.
  */
-void Yield();
+void Yield() {
+  if (sched_yield() == 0){
+        return 0;
+    }
+    else {
+        return -1;
+    }
+}
 
 /* Return 0 if successful; -1 if not
  */
